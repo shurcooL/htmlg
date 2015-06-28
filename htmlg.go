@@ -1,6 +1,6 @@
-// Package html_gen contains helper funcs for generating HTML nodes and rendering them.
+// Package htmlg contains helper funcs for generating HTML nodes and rendering them.
 // Context-aware escaping is done just like in html/template, making it safe against code injection.
-package html_gen
+package htmlg
 
 import (
 	"bytes"
