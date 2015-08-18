@@ -7,7 +7,7 @@ import (
 	"github.com/shurcooL/htmlg"
 )
 
-func ExampleRenderNodes() {
+func Example() {
 	// Context-aware escaping is done just like in html/template.
 	html, err := htmlg.RenderNodes(
 		htmlg.Text("Hi & how are you, "),
