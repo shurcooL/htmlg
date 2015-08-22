@@ -13,4 +13,4 @@ go get -u github.com/shurcooL/htmlg
 License
 -------
 
-- [MIT License](http://opensource.org/licenses/mit-license.php)
+-	[MIT License](http://opensource.org/licenses/mit-license.php)
