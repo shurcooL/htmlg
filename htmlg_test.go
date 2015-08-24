@@ -9,11 +9,11 @@ import (
 
 func Example() {
 	// Context-aware escaping is done just like in html/template.
-	html := htmlg.Must(htmlg.RenderNodes(
+	html := htmlg.Render(
 		htmlg.Text("Hi & how are you, "),
 		htmlg.A("Gophers", "https://golang.org/"),
 		htmlg.Text("? <script> is a cool gopher."),
-	))
+	)
 
 	fmt.Fprintln(os.Stdout, html)
 
