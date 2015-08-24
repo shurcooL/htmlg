@@ -19,21 +19,21 @@ func Text(s string) *html.Node {
 
 // Strong returns a strong text node.
 func Strong(s string) *html.Node {
-	n := &html.Node{
+	strong := &html.Node{
 		Type: html.ElementNode, Data: atom.Strong.String(),
 	}
-	n.AppendChild(Text(s))
-	return n
+	strong.AppendChild(Text(s))
+	return strong
 }
 
 // A returns an anchor element <a href="{{.href}}">{{.s}}</a>.
 func A(s string, href template.URL) *html.Node {
-	n := &html.Node{
+	a := &html.Node{
 		Type: html.ElementNode, Data: atom.A.String(),
 		Attr: []html.Attribute{{Key: atom.Href.String(), Val: string(href)}},
 	}
-	n.AppendChild(Text(s))
-	return n
+	a.AppendChild(Text(s))
+	return a
 }
 
 // RenderNodes renders a list of HTML nodes.
