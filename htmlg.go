@@ -51,29 +51,3 @@ func Render(nodes ...*html.Node) template.HTML {
 	}
 	return template.HTML(buf.String())
 }
-
-// DEPRECATED. Use Render instead.
-//
-// RenderNodes renders HTML nodes.
-// Context-aware escaping is done just like in html/template when rendering nodes.
-func RenderNodes(nodes ...*html.Node) (template.HTML, error) {
-	var buf bytes.Buffer
-	for _, node := range nodes {
-		err := html.Render(&buf, node)
-		if err != nil {
-			return "", err
-		}
-	}
-	return template.HTML(buf.String()), nil
-}
-
-// DEPRECATED. Use Render instead.
-//
-// Must is a helper that wraps a call to a function returning (template.HTML, error)
-// and panics if the error is non-nil.
-func Must(html template.HTML, err error) template.HTML {
-	if err != nil {
-		panic(err)
-	}
-	return html
-}
