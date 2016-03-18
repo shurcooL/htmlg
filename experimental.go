@@ -32,6 +32,19 @@ func DivClass(class string, nodes ...*html.Node) *html.Node {
 	return div
 }
 
+// Span returns a span element <span>{{range .nodes}}{{.}}{{end}}</span>.
+//
+// Span is experimental and may be changed or removed.
+func Span(nodes ...*html.Node) *html.Node {
+	span := &html.Node{
+		Type: html.ElementNode, Data: atom.Span.String(),
+	}
+	for _, n := range nodes {
+		span.AppendChild(n)
+	}
+	return span
+}
+
 // SpanClass returns a span element <span class="{{.class}}">{{range .nodes}}{{.}}{{end}}</span>.
 //
 // SpanClass is experimental and may be changed or removed.
