@@ -1,6 +1,9 @@
 package htmlg
 
 import (
+	"context"
+	"io"
+
 	"golang.org/x/net/html"
 	"golang.org/x/net/html/atom"
 )
@@ -57,4 +60,27 @@ func SpanClass(class string, nodes ...*html.Node) *html.Node {
 		span.AppendChild(n)
 	}
 	return span
+}
+
+// ComponentContext is anything that can render itself into HTML nodes.
+//
+// ComponentContext is experimental and may be changed or removed.
+type ComponentContext interface {
+	Render(ctx context.Context) []*html.Node
+}
+
+// RenderComponentsContext renders components into HTML, writing result to w.
+// Context-aware escaping is done just like in html/template when rendering nodes.
+//
+// RenderComponentsContext is experimental and may be changed or removed.
+func RenderComponentsContext(ctx context.Context, w io.Writer, components ...ComponentContext) error {
+	for _, c := range components {
+		for _, node := range c.Render(ctx) {
+			err := html.Render(w, node)
+			if err != nil {
+				return err
+			}
+		}
+	}
+	return nil
 }
