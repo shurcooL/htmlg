@@ -66,7 +66,7 @@ func SpanClass(class string, nodes ...*html.Node) *html.Node {
 //
 // ComponentContext is experimental and may be changed or removed.
 type ComponentContext interface {
-	Render(ctx context.Context) []*html.Node
+	RenderContext(ctx context.Context) []*html.Node
 }
 
 // RenderComponentsContext renders components into HTML, writing result to w.
@@ -75,7 +75,7 @@ type ComponentContext interface {
 // RenderComponentsContext is experimental and may be changed or removed.
 func RenderComponentsContext(ctx context.Context, w io.Writer, components ...ComponentContext) error {
 	for _, c := range components {
-		for _, node := range c.Render(ctx) {
+		for _, node := range c.RenderContext(ctx) {
 			err := html.Render(w, node)
 			if err != nil {
 				return err
