@@ -49,6 +49,17 @@ func H4(nodes ...*html.Node) *html.Node {
 	return div
 }
 
+// P returns a p element <p>{{range .nodes}}{{.}}{{end}}</p>.
+func P(nodes ...*html.Node) *html.Node {
+	div := &html.Node{
+		Type: html.ElementNode, Data: atom.P.String(),
+	}
+	for _, n := range nodes {
+		div.AppendChild(n)
+	}
+	return div
+}
+
 // DL returns a dl element <dl>{{range .nodes}}{{.}}{{end}}</dl>.
 func DL(nodes ...*html.Node) *html.Node {
 	div := &html.Node{

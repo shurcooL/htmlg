@@ -62,6 +62,34 @@ func SpanClass(class string, nodes ...*html.Node) *html.Node {
 	return span
 }
 
+// ULClass returns a div element <ul class="{{.class}}">{{range .nodes}}{{.}}{{end}}</ul>.
+//
+// ULClass is experimental and may be changed or removed.
+func ULClass(class string, nodes ...*html.Node) *html.Node {
+	ul := &html.Node{
+		Type: html.ElementNode, Data: atom.Ul.String(),
+		Attr: []html.Attribute{{Key: atom.Class.String(), Val: class}},
+	}
+	for _, n := range nodes {
+		ul.AppendChild(n)
+	}
+	return ul
+}
+
+// LIClass returns a div element <li class="{{.class}}">{{range .nodes}}{{.}}{{end}}</li>.
+//
+// LIClass is experimental and may be changed or removed.
+func LIClass(class string, nodes ...*html.Node) *html.Node {
+	li := &html.Node{
+		Type: html.ElementNode, Data: atom.Li.String(),
+		Attr: []html.Attribute{{Key: atom.Class.String(), Val: class}},
+	}
+	for _, n := range nodes {
+		li.AppendChild(n)
+	}
+	return li
+}
+
 // ComponentContext is anything that can render itself into HTML nodes.
 //
 // ComponentContext is experimental and may be changed or removed.
