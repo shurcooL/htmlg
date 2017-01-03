@@ -92,3 +92,25 @@ func DD(nodes ...*html.Node) *html.Node {
 	}
 	return dd
 }
+
+// UL returns a ul element <ul>{{range .nodes}}{{.}}{{end}}</ul>.
+func UL(nodes ...*html.Node) *html.Node {
+	ul := &html.Node{
+		Type: html.ElementNode, Data: atom.Ul.String(),
+	}
+	for _, n := range nodes {
+		ul.AppendChild(n)
+	}
+	return ul
+}
+
+// LI returns a li element <li>{{range .nodes}}{{.}}{{end}}</li>.
+func LI(nodes ...*html.Node) *html.Node {
+	li := &html.Node{
+		Type: html.ElementNode, Data: atom.Li.String(),
+	}
+	for _, n := range nodes {
+		li.AppendChild(n)
+	}
+	return li
+}
