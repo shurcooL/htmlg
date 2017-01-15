@@ -114,3 +114,25 @@ func LI(nodes ...*html.Node) *html.Node {
 	}
 	return li
 }
+
+// TR returns a tr element <tr>{{range .nodes}}{{.}}{{end}}</tr>.
+func TR(nodes ...*html.Node) *html.Node {
+	tr := &html.Node{
+		Type: html.ElementNode, Data: atom.Tr.String(),
+	}
+	for _, n := range nodes {
+		tr.AppendChild(n)
+	}
+	return tr
+}
+
+// TD returns a td element <td>{{range .nodes}}{{.}}{{end}}</td>.
+func TD(nodes ...*html.Node) *html.Node {
+	td := &html.Node{
+		Type: html.ElementNode, Data: atom.Td.String(),
+	}
+	for _, n := range nodes {
+		td.AppendChild(n)
+	}
+	return td
+}
