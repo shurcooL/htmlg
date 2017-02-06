@@ -92,7 +92,10 @@ func LIClass(class string, nodes ...*html.Node) *html.Node {
 
 // ComponentContext is anything that can render itself into HTML nodes.
 //
-// ComponentContext is experimental and may be changed or removed.
+// Deprecated: ComponentContext is deprecated and will be removed soon. It was an experiment,
+// and it turned out not to be a good idea. It makes more sense and scales better to perform
+// service requests in advance (potentially in parallel) and pass static values to components
+// to render.
 type ComponentContext interface {
 	RenderContext(ctx context.Context) []*html.Node
 }
@@ -100,7 +103,10 @@ type ComponentContext interface {
 // RenderComponentsContext renders components into HTML, writing result to w.
 // Context-aware escaping is done just like in html/template when rendering nodes.
 //
-// RenderComponentsContext is experimental and may be changed or removed.
+// Deprecated: RenderComponentsContext is deprecated and will be removed soon. It was an experiment,
+// and it turned out not to be a good idea. It makes more sense and scales better to perform
+// service requests in advance (potentially in parallel) and pass static values to components
+// to render.
 func RenderComponentsContext(ctx context.Context, w io.Writer, components ...ComponentContext) error {
 	for _, c := range components {
 		for _, node := range c.RenderContext(ctx) {
