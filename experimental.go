@@ -1,9 +1,6 @@
 package htmlg
 
 import (
-	"context"
-	"io"
-
 	"golang.org/x/net/html"
 	"golang.org/x/net/html/atom"
 )
@@ -88,33 +85,4 @@ func LIClass(class string, nodes ...*html.Node) *html.Node {
 		li.AppendChild(n)
 	}
 	return li
-}
-
-// ComponentContext is anything that can render itself into HTML nodes.
-//
-// Deprecated: ComponentContext is deprecated and will be removed soon. It was an experiment,
-// and it turned out not to be a good idea. It makes more sense and scales better to perform
-// service requests in advance (potentially in parallel) and pass static values to components
-// to render.
-type ComponentContext interface {
-	RenderContext(ctx context.Context) []*html.Node
-}
-
-// RenderComponentsContext renders components into HTML, writing result to w.
-// Context-aware escaping is done just like in html/template when rendering nodes.
-//
-// Deprecated: RenderComponentsContext is deprecated and will be removed soon. It was an experiment,
-// and it turned out not to be a good idea. It makes more sense and scales better to perform
-// service requests in advance (potentially in parallel) and pass static values to components
-// to render.
-func RenderComponentsContext(ctx context.Context, w io.Writer, components ...ComponentContext) error {
-	for _, c := range components {
-		for _, node := range c.RenderContext(ctx) {
-			err := html.Render(w, node)
-			if err != nil {
-				return err
-			}
-		}
-	}
-	return nil
 }
