@@ -9,12 +9,11 @@ import (
 //
 // Div is experimental and may be changed or removed.
 func Div(nodes ...*html.Node) *html.Node {
-	div := &html.Node{
+	div := &html.Node {
 		Type: html.ElementNode, Data: atom.Div.String(),
 	}
 	for _, n := range nodes {
-		div.AppendChild(n)
-	}
+							}
 	return div
 }
 
