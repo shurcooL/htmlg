@@ -5,7 +5,6 @@ package htmlg
 import (
 	"bytes"
 	"fmt"
-	"html/template"
 	"io"
 
 	"golang.org/x/net/html"
@@ -29,20 +28,18 @@ func Strong(s string) *html.Node {
 }
 
 // A returns an anchor element <a href="{{.href}}">{{.s}}</a>.
-func A(s string, href template.URL) *html.Node {
+func A(s, href string) *html.Node {
 	a := &html.Node{
 		Type: html.ElementNode, Data: atom.A.String(),
-		Attr: []html.Attribute{{Key: atom.Href.String(), Val: string(href)}},
+		Attr: []html.Attribute{{Key: atom.Href.String(), Val: href}},
 	}
 	a.AppendChild(Text(s))
 	return a
 }
 
-// Render renders HTML nodes, returning result as template.HTML.
+// Render renders HTML nodes, returning result as a string.
 // Context-aware escaping is done just like in html/template when rendering nodes.
-//
-// TODO: Return string instead of template.HTML; returning template.HTML has proven to be unhelpful (since so many consumers expect a simple string).
-func Render(nodes ...*html.Node) template.HTML {
+func Render(nodes ...*html.Node) string {
 	var buf bytes.Buffer
 	for _, node := range nodes {
 		err := html.Render(&buf, node)
@@ -53,7 +50,7 @@ func Render(nodes ...*html.Node) template.HTML {
 			panic(fmt.Errorf("internal error: html.Render returned non-nil error, this is not expected to happen: %v", err))
 		}
 	}
-	return template.HTML(buf.String())
+	return buf.String()
 }
 
 // Component is anything that can render itself into HTML nodes.
