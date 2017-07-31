@@ -37,6 +37,15 @@ func A(s, href string) *html.Node {
 	return a
 }
 
+// AppendChildren adds nodes cs as children of n.
+//
+// It will panic if any of cs already has a parent or siblings.
+func AppendChildren(n *html.Node, cs ...*html.Node) {
+	for _, c := range cs {
+		n.AppendChild(c)
+	}
+}
+
 // Render renders HTML nodes, returning result as a string.
 // Context-aware escaping is done just like in html/template when rendering nodes.
 func Render(nodes ...*html.Node) string {
