@@ -5,6 +5,32 @@ import (
 	"golang.org/x/net/html/atom"
 )
 
+// Text returns a plain text node.
+func Text(s string) *html.Node {
+	return &html.Node{
+		Type: html.TextNode, Data: s,
+	}
+}
+
+// Strong returns a strong text node.
+func Strong(s string) *html.Node {
+	strong := &html.Node{
+		Type: html.ElementNode, Data: atom.Strong.String(),
+	}
+	strong.AppendChild(Text(s))
+	return strong
+}
+
+// A returns an anchor element <a href="{{.href}}">{{.s}}</a>.
+func A(s, href string) *html.Node {
+	a := &html.Node{
+		Type: html.ElementNode, Data: atom.A.String(),
+		Attr: []html.Attribute{{Key: atom.Href.String(), Val: href}},
+	}
+	a.AppendChild(Text(s))
+	return a
+}
+
 // H1 returns a h1 element <h1>{{range .nodes}}{{.}}{{end}}</h1>.
 func H1(nodes ...*html.Node) *html.Node {
 	h1 := &html.Node{
@@ -135,4 +161,86 @@ func TD(nodes ...*html.Node) *html.Node {
 		td.AppendChild(n)
 	}
 	return td
+}
+
+// Div returns a div element <div>{{range .nodes}}{{.}}{{end}}</div>.
+//
+// Div is experimental and may be changed or removed.
+func Div(nodes ...*html.Node) *html.Node {
+	div := &html.Node{
+		Type: html.ElementNode, Data: atom.Div.String(),
+	}
+	for _, n := range nodes {
+		div.AppendChild(n)
+	}
+	return div
+}
+
+// DivClass returns a div element <div class="{{.class}}">{{range .nodes}}{{.}}{{end}}</div>.
+//
+// DivClass is experimental and may be changed or removed.
+func DivClass(class string, nodes ...*html.Node) *html.Node {
+	div := &html.Node{
+		Type: html.ElementNode, Data: atom.Div.String(),
+		Attr: []html.Attribute{{Key: atom.Class.String(), Val: class}},
+	}
+	for _, n := range nodes {
+		div.AppendChild(n)
+	}
+	return div
+}
+
+// Span returns a span element <span>{{range .nodes}}{{.}}{{end}}</span>.
+//
+// Span is experimental and may be changed or removed.
+func Span(nodes ...*html.Node) *html.Node {
+	span := &html.Node{
+		Type: html.ElementNode, Data: atom.Span.String(),
+	}
+	for _, n := range nodes {
+		span.AppendChild(n)
+	}
+	return span
+}
+
+// SpanClass returns a span element <span class="{{.class}}">{{range .nodes}}{{.}}{{end}}</span>.
+//
+// SpanClass is experimental and may be changed or removed.
+func SpanClass(class string, nodes ...*html.Node) *html.Node {
+	span := &html.Node{
+		Type: html.ElementNode, Data: atom.Span.String(),
+		Attr: []html.Attribute{{Key: atom.Class.String(), Val: class}},
+	}
+	for _, n := range nodes {
+		span.AppendChild(n)
+	}
+	return span
+}
+
+// ULClass returns a div element <ul class="{{.class}}">{{range .nodes}}{{.}}{{end}}</ul>.
+//
+// ULClass is experimental and may be changed or removed.
+func ULClass(class string, nodes ...*html.Node) *html.Node {
+	ul := &html.Node{
+		Type: html.ElementNode, Data: atom.Ul.String(),
+		Attr: []html.Attribute{{Key: atom.Class.String(), Val: class}},
+	}
+	for _, n := range nodes {
+		ul.AppendChild(n)
+	}
+	return ul
+}
+
+// LIClass returns a div element <li class="{{.class}}">{{range .nodes}}{{.}}{{end}}</li>.
+//
+// LIClass is experimental and may be changed or removed.
+func LIClass(class string, nodes ...*html.Node) *html.Node {
+	li := &html.Node{
+		Type: html.ElementNode, Data: atom.Li.String(),
+		Attr: []html.Attribute{{Key: atom.Class.String(), Val: class}},
+	}
+	for _, n := range nodes {
+		li.AppendChild(n)
+	}
+	return li
 }

@@ -1,5 +1,8 @@
 // Package htmlg contains helper funcs for generating HTML nodes and rendering them.
 // Context-aware escaping is done just like in html/template, making it safe against code injection.
+//
+// Note: This package is quite experimental in nature, so its API is susceptible to more frequent
+// changes than the average package. This is necessary in order to keep this package useful.
 package htmlg
 
 import (
@@ -8,43 +11,7 @@ import (
 	"io"
 
 	"golang.org/x/net/html"
-	"golang.org/x/net/html/atom"
 )
-
-// Text returns a plain text node.
-func Text(s string) *html.Node {
-	return &html.Node{
-		Type: html.TextNode, Data: s,
-	}
-}
-
-// Strong returns a strong text node.
-func Strong(s string) *html.Node {
-	strong := &html.Node{
-		Type: html.ElementNode, Data: atom.Strong.String(),
-	}
-	strong.AppendChild(Text(s))
-	return strong
-}
-
-// A returns an anchor element <a href="{{.href}}">{{.s}}</a>.
-func A(s, href string) *html.Node {
-	a := &html.Node{
-		Type: html.ElementNode, Data: atom.A.String(),
-		Attr: []html.Attribute{{Key: atom.Href.String(), Val: href}},
-	}
-	a.AppendChild(Text(s))
-	return a
-}
-
-// AppendChildren adds nodes cs as children of n.
-//
-// It will panic if any of cs already has a parent or siblings.
-func AppendChildren(n *html.Node, cs ...*html.Node) {
-	for _, c := range cs {
-		n.AppendChild(c)
-	}
-}
 
 // Render renders HTML nodes, returning result as a string.
 // Context-aware escaping is done just like in html/template when rendering nodes.
@@ -105,4 +72,13 @@ type NodeComponent html.Node
 func (n NodeComponent) Render() []*html.Node {
 	node := html.Node(n)
 	return []*html.Node{&node}
+}
+
+// AppendChildren adds nodes cs as children of n.
+//
+// It will panic if any of cs already has a parent or siblings.
+func AppendChildren(n *html.Node, cs ...*html.Node) {
+	for _, c := range cs {
+		n.AppendChild(c)
+	}
 }
