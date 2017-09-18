@@ -7,6 +7,7 @@ import (
 	"github.com/shurcooL/component"
 	"github.com/shurcooL/htmlg"
 	"golang.org/x/net/html"
+	"golang.org/x/net/html/atom"
 )
 
 func Example() {
@@ -43,4 +44,19 @@ func ExampleAppendChildren() {
 
 	// Output:
 	// <div>Go <a href="https://golang.org" target="_blank">there</a>for more!</div>
+}
+
+func ExampleNodeComponent() {
+	heading := htmlg.NodeComponent{
+		Type: html.ElementNode, Data: atom.H2.String(),
+		FirstChild: htmlg.Text("This heading is an htmlg.Component"),
+	}
+
+	err := htmlg.RenderComponents(os.Stdout, heading)
+	if err != nil {
+		panic(err)
+	}
+
+	// Output:
+	// <h2>This heading is an htmlg.Component</h2>
 }

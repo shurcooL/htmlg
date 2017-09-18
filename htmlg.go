@@ -98,3 +98,11 @@ func RenderComponentsString(components ...Component) string {
 	}
 	return buf.String()
 }
+
+// NodeComponent is a wrapper that makes a Component from a single html.Node.
+type NodeComponent html.Node
+
+func (n NodeComponent) Render() []*html.Node {
+	node := html.Node(n)
+	return []*html.Node{&node}
+}
