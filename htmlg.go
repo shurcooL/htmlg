@@ -66,6 +66,20 @@ func RenderComponentsString(components ...Component) string {
 	return buf.String()
 }
 
+// Nodes implements the Component interface from a slice of HTML nodes.
+//
+// The Render method always returns the same references to existing nodes,
+// and as a result, it is unsuitable to be rendered and attached to other
+// HTML nodes more than once. It is suitable to rendered directly into HTML
+// multiple times, or attached to an existing node once.
+//
+// Nodes is experimental and may be changed or removed.
+type Nodes []*html.Node
+
+func (ns Nodes) Render() []*html.Node {
+	return []*html.Node(ns)
+}
+
 // NodeComponent is a wrapper that makes a Component from a single html.Node.
 type NodeComponent html.Node
 

@@ -46,6 +46,20 @@ func ExampleAppendChildren() {
 	// <div>Go <a href="https://golang.org" target="_blank">there</a>for more!</div>
 }
 
+func ExampleNodes() {
+	err := htmlg.RenderComponents(os.Stdout, htmlg.Nodes{
+		htmlg.Text("Hi & how are you, "),
+		htmlg.A("Gophers", "https://golang.org/"),
+		htmlg.Text("? <script> is a cool gopher."),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	// Output:
+	// Hi &amp; how are you, <a href="https://golang.org/">Gophers</a>? &lt;script&gt; is a cool gopher.
+}
+
 func ExampleNodeComponent() {
 	heading := htmlg.NodeComponent{
 		Type: html.ElementNode, Data: atom.H2.String(),
