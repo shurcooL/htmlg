@@ -86,6 +86,28 @@ func P(nodes ...*html.Node) *html.Node {
 	return p
 }
 
+// Pre returns a pre element <pre>{{range .nodes}}{{.}}{{end}}</pre>.
+func Pre(nodes ...*html.Node) *html.Node {
+	pre := &html.Node{
+		Type: html.ElementNode, Data: atom.Pre.String(),
+	}
+	for _, n := range nodes {
+		pre.AppendChild(n)
+	}
+	return pre
+}
+
+// Code returns a code element <code>{{range .nodes}}{{.}}{{end}}</code>.
+func Code(nodes ...*html.Node) *html.Node {
+	code := &html.Node{
+		Type: html.ElementNode, Data: atom.Code.String(),
+	}
+	for _, n := range nodes {
+		code.AppendChild(n)
+	}
+	return code
+}
+
 // DL returns a dl element <dl>{{range .nodes}}{{.}}{{end}}</dl>.
 func DL(nodes ...*html.Node) *html.Node {
 	dl := &html.Node{
