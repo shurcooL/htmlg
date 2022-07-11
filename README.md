@@ -1,7 +1,7 @@
 htmlg
 =====
 
-[![Build Status](https://travis-ci.org/shurcooL/htmlg.svg?branch=master)](https://travis-ci.org/shurcooL/htmlg) [![GoDoc](https://godoc.org/github.com/shurcooL/htmlg?status.svg)](https://godoc.org/github.com/shurcooL/htmlg)
+[![Go Reference](https://pkg.go.dev/badge/github.com/shurcooL/htmlg.svg)](https://pkg.go.dev/github.com/shurcooL/htmlg)
 
 Package htmlg contains helper funcs for generating HTML nodes and rendering them.
 Context-aware escaping is done just like in html/template, making it safe against code injection.
@@ -12,8 +12,8 @@ changes than the average package. This is necessary in order to keep this packag
 Installation
 ------------
 
-```bash
-go get -u github.com/shurcooL/htmlg
+```sh
+go get github.com/shurcooL/htmlg
 ```
 
 License
